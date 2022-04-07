@@ -1,1 +1,1 @@
-# Salt-Security-
+# Salt-Security-Challenge
