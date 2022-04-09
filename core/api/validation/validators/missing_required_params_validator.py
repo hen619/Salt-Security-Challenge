@@ -1,24 +1,29 @@
 from typing import List
 
-from core.schema.model_schema import ModelSchema, ModelParamSchema
-from core.schema.request_schema import RequestSchema, RequestParamSchema
+from core.api.responses.validation_response import MissingRequiredParamsValidatorResponse
+from core.api.validation.validators.validator import Validator
+from core.dataclasses.parameters import Parameters
+from core.dataclasses.model_schema import ModelSchema, ModelParamSchema
+from core.dataclasses.request_schema import RequestSchema, RequestParamSchema
 
 
-class MissingRequiredParamsFetcher:
+class MissingRequiredParamsValidator(Validator):
     def __init__(self, model: ModelSchema, request: RequestSchema):
-        self.__model: ModelSchema = model
-        self.__request: RequestSchema = request
+        super().__init__(model, request)
 
-    def find_missing_required_params(self) -> dict:
+    def validate(self) -> MissingRequiredParamsValidatorResponse:
         header_missing_params = self.__get_missing_required_params(model_params=self.__model.headers,
                                                                    request_params=self.__request.headers)
         query_missing_params = self.__get_missing_required_params(model_params=self.__model.query_params,
                                                                   request_params=self.__request.query_params)
         body_missing_params = self.__get_missing_required_params(model_params=self.__model.body,
                                                                  request_params=self.__request.body)
-        return {'header_params': header_missing_params,
-                'query_params': query_missing_params,
-                'body_params': body_missing_params}
+        if not header_missing_params and not query_missing_params and not body_missing_params:
+            return MissingRequiredParamsValidatorResponse(valid=True)
+        return MissingRequiredParamsValidatorResponse(valid=False,
+                                                      missing_parameters=Parameters(header=header_missing_params,
+                                                                                    query=query_missing_params,
+                                                                                    body=body_missing_params))
 
     def __get_missing_required_params(self, model_params: List[ModelParamSchema],
                                       request_params: List[RequestParamSchema]) -> \

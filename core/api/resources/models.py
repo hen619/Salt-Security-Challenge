@@ -3,7 +3,7 @@ from flask import request, session
 from flask_restful import Resource
 
 from core.cache.cache import add_model
-from core.schema.model_schema import ModelSchema
+from core.dataclasses.model_schema import ModelSchema
 
 
 class Models(Resource):

@@ -1,6 +1,6 @@
 from flask import session
 
-from core.schema.model_schema import ModelSchema
+from core.dataclasses.model_schema import ModelSchema
 
 
 def add_model(model: ModelSchema):

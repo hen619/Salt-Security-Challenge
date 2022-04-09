@@ -4,11 +4,13 @@ from dacite import from_dict, MissingValueError
 from flask import request
 from flask_restful import Resource
 
-from core.api.validation.validation import validate_request
+from core.api.validation.request_validator import validate_request
+
+from core.api.validation.validation_handler import ValidationHandler
 from core.cache.cache import get_models
 from core.common.utils import get_matching_model
-from core.schema.model_schema import ModelSchema
-from core.schema.request_schema import RequestSchema
+from core.dataclasses.model_schema import ModelSchema
+from core.dataclasses.request_schema import RequestSchema
 
 
 class ApiRequests(Resource):
@@ -18,7 +20,8 @@ class ApiRequests(Resource):
             api_request: RequestSchema = from_dict(RequestSchema, request_data)
             model: ModelSchema = get_matching_model(api_request, get_models())
             if model:
-                response = validate_request(request=api_request, model=model)
+                validation_handler = ValidationHandler(request=api_request, model=model)
+                response = validation_handler.validate_request()
             else:
                 return "No Matching model found for the request"
         except MissingValueError as e:

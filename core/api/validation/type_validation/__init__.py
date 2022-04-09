@@ -10,3 +10,4 @@ class ParamType(Enum):
     EMAIL = 'Email'
     LIST = 'List'
     DATE = 'Date'
+
