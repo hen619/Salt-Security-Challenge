@@ -1,14 +1,19 @@
 from dataclasses import dataclass
-from typing import List
+from enum import Enum
 
 from core.dataclasses.request_schema import RequestParamSchema
 
 
+class Scope(Enum):
+    HEADERS = 'headers'
+    BODY = 'body'
+    QUERY_PARAMS = 'query_params'
+
+
 @dataclass
-class Parameters:
-    header: List[str]
-    query: List[str]
-    body: List[str]
+class RequiredMissingParameter:
+    name: str
+    scope: str
 
 
 @dataclass
@@ -16,5 +21,3 @@ class TypeMismatchParameter:
     parameter: RequestParamSchema
     scope: str
     expected_type: str
-
-

@@ -13,4 +13,5 @@ class Models(Resource):
             model: ModelSchema = from_dict(ModelSchema, request_data)
             add_model(model=model)
         except MissingValueError as e:
-            return str(e)
+            return str(e), 400
+        return 200

@@ -1,16 +1,13 @@
-from typing import List
-
 from dacite import from_dict, MissingValueError
-from flask import request
+from flask import request, jsonify
 from flask_restful import Resource
 
-from core.api.validation.request_validator import validate_request
-
-from core.api.validation.validation_handler import ValidationHandler
+from core.api.responses.validation_response import ValidationProcessResponse
 from core.cache.cache import get_models
 from core.common.utils import get_matching_model
 from core.dataclasses.model_schema import ModelSchema
 from core.dataclasses.request_schema import RequestSchema
+from core.validation.validation_handler import ValidationHandler
 
 
 class ApiRequests(Resource):
@@ -21,9 +18,9 @@ class ApiRequests(Resource):
             model: ModelSchema = get_matching_model(api_request, get_models())
             if model:
                 validation_handler = ValidationHandler(request=api_request, model=model)
-                response = validation_handler.validate_request()
+                response: ValidationProcessResponse = validation_handler.validate_request()
             else:
                 return "No Matching model found for the request"
         except MissingValueError as e:
             return str(e)
-        return response
+        return jsonify(response)

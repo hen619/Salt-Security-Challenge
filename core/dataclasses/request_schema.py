@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Any
 
 
 @dataclass
 class RequestParamSchema:
     name: str
-    value: any
+    value: Any
 
 
 @dataclass
