@@ -3,14 +3,14 @@ from core.dataclasses.request_schema import RequestSchema
 
 '''
 -- Real life solution -- 
-In real life production i would use Redis as a key value dataBase.
+In real life production I would use Redis as a key value dataBase.
 The key will be a hash of the path and method, and the value will be the model object it self
 This way i can access the models in O(1) complexity. 
 
 -- Trade offs --
-On one hand all Redis data resides in memory, which enables low latency and high performance 
+All Redis data resides in memory, which enables low latency and high performance 
 But large amount of models can require a lot of memory.
-In case we lack memory I would consider using relational database such as: SqlSever.
+In case we lack memory I would consider using Another Database.
 '''
 
 models: dict = {}
