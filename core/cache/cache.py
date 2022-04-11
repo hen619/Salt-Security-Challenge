@@ -1,13 +1,5 @@
-from typing import List
-
-from dacite import from_dict
-from flask import session
-
 from core.dataclasses.model_schema import ModelSchema
 from core.dataclasses.request_schema import RequestSchema
-
-global models
-models = {}
 
 '''
 -- Real life solution -- 
@@ -20,6 +12,8 @@ On one hand all Redis data resides in memory, which enables low latency and high
 But large amount of models can require a lot of memory.
 In case we lack memory I would consider using relational database such as: SqlSever.
 '''
+
+models: dict = {}
 
 
 def add_model(model: ModelSchema):

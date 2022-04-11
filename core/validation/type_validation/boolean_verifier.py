@@ -1,10 +1,10 @@
 from core.validation.type_validation import ParamType
-from core.validation.type_validation.type_validator import TypeValidator
+from core.validation.type_validation.type_verifier import TypeVerifier
 
 
-class BooleanValidator(TypeValidator):
+class BooleanVerifier(TypeVerifier):
     def __init__(self, name: ParamType):
         super().__init__(name)
 
-    def validate(self, value: any):
+    def verify(self, value: any):
         return isinstance(value, bool)

@@ -4,8 +4,8 @@ from core.api.responses.validation_response import TypeMismatchValidatorResponse
 from core.dataclasses.model_schema import ModelSchema, ModelParamSchema
 from core.dataclasses.parameters import TypeMismatchParameter, Scope
 from core.dataclasses.request_schema import RequestSchema, RequestParamSchema
-from core.validation.type_validation.factory.type_validator_factory import get_type_validators
-from core.validation.type_validation.type_validator import TypeValidator
+from core.validation.type_validation.type_verifier_factory import get_type_validators
+from core.validation.type_validation.type_verifier import TypeVerifier
 from core.validation.validators.validator import Validator
 
 
@@ -35,9 +35,9 @@ class TypeMismatchValidator(Validator):
         for expected_param in model_parameters:
             request_param = self.get_request_param(model_param=expected_param, request_parameters=request_parameters)
             if request_param:
-                types_validators: List[TypeValidator] = get_type_validators(expected_param.types)
+                types_validators: List[TypeVerifier] = get_type_validators(expected_param.types)
                 for type_validator in types_validators:
-                    if not type_validator.validate(request_param.value):
+                    if not type_validator.verify(request_param.value):
                         type_mismatch_params.append(
                             TypeMismatchParameter(parameter=request_param, scope=scope.name,
                                                   expected_type=type_validator.name.value))
