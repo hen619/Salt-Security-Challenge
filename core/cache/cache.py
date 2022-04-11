@@ -4,18 +4,30 @@ from dacite import from_dict
 from flask import session
 
 from core.dataclasses.model_schema import ModelSchema
+from core.dataclasses.request_schema import RequestSchema
+
+global models
+models = {}
+
+'''
+-- Real life solution -- 
+In real life production i would use Redis as a key value dataBase.
+The key will be a hash of the path and method, and the value will be the model object it self
+This way i can access the models in O(1) complexity. 
+
+-- Trade offs --
+On one hand all Redis data resides in memory, which enables low latency and high performance 
+But large amount of models can require a lot of memory.
+In case we lack memory I would consider using relational database such as: SqlSever.
+'''
 
 
 def add_model(model: ModelSchema):
-    session.pop('models')
-    if 'models' not in session.keys():
-        session['models'] = []
-    session['models'].append(model)
-# to do - check if model already exists
+    model_hash = model.path + model.method
+    models[model_hash] = model
 
 
-def get_models() -> List[ModelSchema]:
-    models: List[ModelSchema] = []
-    for model in session['models']:
-        models.append(from_dict(ModelSchema, model))
-    return models
+def get_matching_model(api_request: RequestSchema):
+    model_hash = api_request.path + api_request.method
+    if model_hash in models.keys():
+        return models[model_hash]

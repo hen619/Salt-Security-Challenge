@@ -3,8 +3,7 @@ from flask import request, jsonify
 from flask_restful import Resource
 
 from core.api.responses.validation_response import ValidationProcessResponse
-from core.cache.cache import get_models
-from core.common.utils import get_matching_model
+from core.cache.cache import get_matching_model
 from core.dataclasses.model_schema import ModelSchema
 from core.dataclasses.request_schema import RequestSchema
 from core.validation.validation_handler import ValidationHandler
@@ -15,7 +14,7 @@ class ApiRequests(Resource):
         request_data: dict = request.get_json()
         try:
             api_request: RequestSchema = from_dict(RequestSchema, request_data)
-            model: ModelSchema = get_matching_model(api_request, get_models())
+            model: ModelSchema = get_matching_model(api_request)
             if model:
                 validation_handler = ValidationHandler(request=api_request, model=model)
                 response: ValidationProcessResponse = validation_handler.validate_request()

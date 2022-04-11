@@ -1,5 +1,4 @@
 from typing import List, Dict
-
 from core.validation.type_validation import ParamType
 from core.validation.type_validation.auth_token_validator import AuthTokenValidator
 from core.validation.type_validation.boolean_validator import BooleanValidator
