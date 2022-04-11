@@ -9,7 +9,6 @@ class Validator(ABC):
     def __init__(self, model: ModelSchema, request: RequestSchema):
         self._model: ModelSchema = model
         self._request: RequestSchema = request
-        self.name = "Base Validator"
 
     @abstractmethod
     def validate(self) -> ValidatorResponse:

@@ -1,14 +1,14 @@
 from typing import List, Dict
-from core.validation.type_validation import ParamType
-from core.validation.type_validation.auth_token_verifier import AuthTokenVerifier
-from core.validation.type_validation.boolean_verifier import BooleanVerifier
-from core.validation.type_validation.date_verifier import DateVerifier
-from core.validation.type_validation.email_verifier import EmailValidator
-from core.validation.type_validation.int_verifier import IntVerifier
-from core.validation.type_validation.list_verifier import ListVerifier
-from core.validation.type_validation.string_verifier import StringVerifier
-from core.validation.type_validation.type_verifier import TypeVerifier
-from core.validation.type_validation.uuid_verifier import UUIDValidator
+from core.validation.type_verification import ParamType
+from core.validation.type_verification.auth_token_verifier import AuthTokenVerifier
+from core.validation.type_verification.boolean_verifier import BooleanVerifier
+from core.validation.type_verification.date_verifier import DateVerifier
+from core.validation.type_verification.email_verifier import EmailValidator
+from core.validation.type_verification.int_verifier import IntVerifier
+from core.validation.type_verification.list_verifier import ListVerifier
+from core.validation.type_verification.string_verifier import StringVerifier
+from core.validation.type_verification.type_verifier import TypeVerifier
+from core.validation.type_verification.uuid_verifier import UUIDValidator
 
 validators: Dict[str, TypeVerifier] = {
     ParamType.STRING.value: StringVerifier(name=ParamType.STRING),

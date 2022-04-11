@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from core.validation.type_validation import ParamType
+from core.validation.type_verification import ParamType
 
 
 class TypeVerifier(ABC):

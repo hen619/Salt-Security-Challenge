@@ -8,7 +8,7 @@ from core.dataclasses.parameters import TypeMismatchParameter, RequiredMissingPa
 @dataclass
 class ValidationProcessResponse(ABC):
     status: str
-    details: str = ""
+    details: dict = None
 
 
 @dataclass
@@ -34,4 +34,5 @@ class TypeMismatchValidatorResponse(ValidatorResponse):
     type_mismatch_params: List[TypeMismatchParameter] = None
 
     def get_details(self) -> Dict:
-        return {'type_mismatch_params': self.type_mismatch_params}
+        if self.type_mismatch_params:
+            return {'type_mismatch_params': self.type_mismatch_params}

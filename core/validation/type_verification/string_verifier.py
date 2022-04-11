@@ -1,5 +1,5 @@
-from core.validation.type_validation import ParamType
-from core.validation.type_validation.type_verifier import TypeVerifier
+from core.validation.type_verification import ParamType
+from core.validation.type_verification.type_verifier import TypeVerifier
 
 
 class StringVerifier(TypeVerifier):

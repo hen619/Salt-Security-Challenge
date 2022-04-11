@@ -1,5 +1,5 @@
-from core.validation.type_validation import ParamType
-from core.validation.type_validation.string_verifier import StringVerifier
+from core.validation.type_verification import ParamType
+from core.validation.type_verification.string_verifier import StringVerifier
 import re
 
 
@@ -11,5 +11,5 @@ class AuthTokenVerifier(StringVerifier):
         if not super(AuthTokenVerifier, self).verify(value):
             return False
 
-        regex = re.compile('Bearer *')
+        regex = "^Bearer *"
         return bool(re.search(regex, value))

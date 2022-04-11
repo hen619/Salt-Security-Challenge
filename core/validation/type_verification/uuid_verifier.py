@@ -1,5 +1,5 @@
-from core.validation.type_validation import ParamType
-from core.validation.type_validation.string_verifier import StringVerifier
+from core.validation.type_verification import ParamType
+from core.validation.type_verification.string_verifier import StringVerifier
 import uuid
 
 

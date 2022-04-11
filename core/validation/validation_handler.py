@@ -21,6 +21,6 @@ class ValidationHandler:
             if not response.valid:
                 valid = False
                 details.update(response.get_details())
-        if not valid:
-            return ValidationProcessResponse(status='abnormal', details=details)
-        return ValidationProcessResponse(status='valid')
+        if valid:
+            return ValidationProcessResponse(status='Valid')
+        return ValidationProcessResponse(status='Abnormal', details=details)
